@@ -2,7 +2,7 @@ package services
 
 import (
 	"encoding/json"
-	"github.com/benbarron/UserMicroService/database"
+	"github.com/benbarron/golang-auth-server/database"
 	"github.com/gofiber/fiber/v2"
 )
 

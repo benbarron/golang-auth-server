@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/benbarron/UserMicroService/handlers"
-	"github.com/benbarron/UserMicroService/database"
-	"github.com/benbarron/UserMicroService/services"
+	"github.com/benbarron/golang-auth-server/handlers"
+	"github.com/benbarron/golang-auth-server/database"
+	"github.com/benbarron/golang-auth-server/services"
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
 	"log"

@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"github.com/benbarron/UserMicroService/database"
-	"github.com/benbarron/UserMicroService/services"
+	"github.com/benbarron/golang-auth-server/database"
+	"github.com/benbarron/golang-auth-server/services"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -21,18 +21,13 @@ func AuthMiddleware(ctx *fiber.Ctx) error {
 	if claims, err := jwtService.ValidateToken(refreshToken); err == nil {
 		var user database.User
 		res := db.Where("uid = ?", claims.User.Uid).First(&user)
-		if res.Error != nil || user.TokenStep != claims.User.TokenStep {
-			return ctx.Status(401).JSON(fiber.Map{
-				"error": "Unauthorized",
-			})
+		if res.Error == nil && user.TokenStep == claims.User.TokenStep {
+			newAccessToken, _ := jwtService.GenerateAccessToken(claims.User)
+			ctx.Response().Header.Add("access-token", newAccessToken)
+			localService.SetUser(ctx, claims.User)
+			return ctx.Next()
 		}
-		newAccessToken, _ := jwtService.GenerateAccessToken(claims.User)
-		ctx.Response().Header.Add("access-token", newAccessToken)
-		localService.SetUser(ctx, claims.User)
-		return ctx.Next()
-
 	}
-
 	return ctx.Status(401).JSON(fiber.Map{
 		"error": "Unauthorized",
 	})

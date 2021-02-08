@@ -2,7 +2,7 @@ package services
 
 import (
 	"errors"
-	"github.com/benbarron/UserMicroService/database"
+	"github.com/benbarron/golang-auth-server/database"
 	"gorm.io/gorm"
 )
 
