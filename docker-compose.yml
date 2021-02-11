@@ -1,0 +1,30 @@
+version: "3"
+
+networks:
+  docker-network:
+    driver: bridge
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    networks:
+      - docker-network
+
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    networks:
+      - docker-network
+    environment:
+      MYSQL_DATABASE: go_api
+      MYSQL_USER: benbarron
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
