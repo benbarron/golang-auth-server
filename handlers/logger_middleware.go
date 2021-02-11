@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"fmt"
-	"github.com/benbarron/UserMicroService/services"
+	"github.com/benbarron/golang-auth-server/services"
 	"github.com/gofiber/fiber/v2"
 )
 
